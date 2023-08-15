@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد کاربری</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.rtl.min.css"
+        integrity="sha384-DOXMLfHhQkvFFp+rWTZwVlPVqdIhpDVYT9csOnHSgWQWPX0v5MCGtjCJbY6ERspU" crossorigin="anonymous">
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        .toggle {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 30px;
+            cursor: pointer;
+            outline: 0;
+        }
+
+        .toggle span {
+            width: 100%;
+            height: 3px;
+            background: #ffffff;
+            display: block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle span:before,
+        .toggle span:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            transition: all 0.3s ease-out;
+        }
+
+        .toggle span:before {
+            top: -8px;
+        }
+
+        .toggle span:after {
+            top: 8px;
+        }
+
+        .toggle span.toggle {
+            background: transparent;
+        }
+
+        .toggle span.toggle:before {
+            top: 0;
+            transform: rotate(-45deg);
+            background: #0d6efd;
+
+        }
+
+        .toggle span.toggle:after {
+            top: 0;
+            transform: rotate(45deg);
+            background: #0d6efd;
+        }
+
+        .sidebar {
+            position: fixed;
+            transition: all 0.4s ease-out;
+            top: 0;
+            right: -100vw;
+            height: 100%;
+            padding-top: 80px;
+            z-index: 1;
+        }
+
+        .sidebarshow {
+            right: 0vw;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+        <div class="container-fluid justify-content-start">
+            <button type="button" class="toggle"><!-- <i class="bi bi-list"></i> -->
+                <span></span>
+            </button>
+            <a class="navbar-brand text-white-50 ms-2" href="home.html">برند</a>
+    </nav>
+
+    <div class="modal fade" id="ChargeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="ChargeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ChargeLabel">شارژ کیف پول</h1>
+                    <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group my-2">
+                        <label>موجودی فعلی:</label>
+                        <p class=" fs-5 text-secondary text-end"><span class="font-monospace">10,000</span> تومان</p>
+                    </div>
+                    <div class="form-group my-4">
+                        <label for="amount" class="form-label">مبلغ مورد نظر:</label>
+                        <div class="input-group p-4 pe-0 mb-3">
+                            <button class="btn btn-secondary btn-minus" type="button"
+                                onclick="changeInput(this)">+</button>
+                            <span class="input-group-text">تومان</span>
+                            <input type="number" class="form-control font-monospace" id="amount" min="5000"
+                                max="200000000" step="1000">
+                            <button class="btn btn-secondary btn-plus" type="button"
+                                onclick="changeInput(this)">-</button>
+                        </div>
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="amount-after-adding">موجودی بعد از شارژ شدن:</label>
+                        <p class=" fs-5 text-success text-end"><span class="font-monospace">250,000</span> تومان</p>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-start">
+                    <button type="reset" class="btn btn-secondary p-2 px-4" data-bs-dismiss="modal">لغو</button>
+                    <button type="submit" class="btn btn-primary p-2 px-3">پرداخت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="DeleteModal" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ChargeLabel">پاک کردن سرور</h1>
+                    <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="py-2">آیا مطمئنید که میخواید دیلیت کنید آیا مطمئنید که میخواید دیلیت کنید آیا مطمئنید که میخواید دیلیت کنید آیا مطمئنید که میخواید دیلیت کنید؟</p>
+                    <div class="my-3">
+                        <span class="small text-muted">آی‌پی ورژن 4</span>
+                    <div class="d-flex justify-content-start mt-2">
+                        <div class="form-check me-4">
+                            <input class="form-check-input" type="radio" name="delip4" id="delipv4">
+                            <label class="form-check-label" for="delipv4">
+                              پاک کردن آی‌پی
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="delip4" id="keepipv4" checked>
+                            <label class="form-check-label" for="keepipv4">
+                              نگه‌داشتن آی‌پی
+                            </label>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="my-3">
+                        <span class="small text-muted">آی‌پی ورژن 6</span>
+                    <div class="d-flex justify-content-start mt-2">
+                        <div class="form-check me-4">
+                            <input class="form-check-input" type="radio" name="delip6" id="delipv6">
+                            <label class="form-check-label" for="delipv6">
+                              پاک کردن آی‌پی
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="delip6" id="keepipv6" checked>
+                            <label class="form-check-label" for="keepipv6">
+                              نگه‌داشتن آی‌پی
+                            </label>
+                          </div>
+                    </div>
+                    </div>
+                    <div class="my-3">
+                        <p>برای تایید حذف، نام سرور را تایپ کنید.</p>
+                        <div dir="auto">
+                        <input class="form-control my-2 text-center bg-secondary bg-opacity-25" type="text" value="Ubuntu-2gb-hel1-1" aria-label="server name" readonly>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="serverName" placeholder="نام سرور">
+                            <label for="serverName">نام سرور</label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-start">
+                    <button type="reset" class="btn btn-secondary p-2 px-4" data-bs-dismiss="modal">لغو</button>
+                    <button type="submit" class="btn btn-danger p-2 px-3">پاک کردن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-4 col-md-3 trns bg-dark sidebar px-3">
+                <ul class="list-unstyled px-0">
+                    <li class="mb-3">
+                        <button class="btn btn-outline-light align-items-center collapsed w-100"
+                            data-bs-toggle="collapse" data-bs-target="#server-collapse" aria-expanded="false">
+                            <span class="bi bi-server"> خدمات دیتاسنتر</span>
+                        </button>
+                        <div class="collapse shadow show" id="server-collapse">
+                            <ul class="list-unstyled pb-1 small mt-3 px-0">
+                                <li><a href="servers.html" class="btn btn-sm btn-dark rounded w-100"><span
+                                            class="bi bi-list-check"></span> لیست
+                                        سرورها</a></li>
+                                <li><a href="ips.html" class="btn btn-sm btn-dark rounded w-100 mt-2"><span
+                                            class="bi bi-link-45deg"></span>لیست آی‌پی‌ها</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mb-3">
+                        <button class="btn btn-outline-light align-items-center collapsed w-100"
+                            data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                            <span class="bi bi-person"> حساب کاربری</span>
+                        </button>
+                        <div class="collapse shadow show" id="dashboard-collapse">
+                            <ul class="list-unstyled pb-1 small mt-3 px-0">
+                                <li><a href="dashboard.html" class="btn btn-sm btn-dark rounded w-100 "><span
+                                            class="bi bi-person-bounding-box disabled"></span>
+                                        داشبورد </a></li>
+                                <li><button class="btn btn-sm btn-dark rounded w-100 mt-2" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#ChargeModal"><span
+                                            class="bi bi-wallet2"></span> شارژ
+                                        کیف پول</button></li>
+                                <li><a href="#" class="btn btn-sm btn-dark rounded w-100 mt-2"><span
+                                            class="bi bi-calendar3-range disabled"></span>
+                                        تاریخچه شارژ</a></li>
+                                <li><a href="home.html" class="btn btn-sm btn-dark rounded w-100 mt-2"><span
+                                            class="bi bi-door-open"></span>
+                                        خروج از حساب</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <main role="main" class="trns pt-3 px-4 vh-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="h2 px-3 pb-3 mb-3 border-bottom ms-5">وضعیت سرورها</h1>
+                    <div class="btn-toolbar mb-4">
+                        <a href="buy_server.html" class="btn fw-bolder btn-primary">
+                            <span class="d-none d-sm-block">خرید سرور</span><span class="d-block fw-bolder d-sm-none">
+                                + </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive text-nowrap py-5 pt-2">
+                    <table class="table table-hover table-borderless align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col"><input type="checkbox" class="form-check-input check-all"></th>
+                                <th scope="col" class="pe-5">نام</th>
+                                <th scope="col" class="d-none d-md-table-cell">آی‌پی عمومی</th>
+                                <th scope="col" class=" d-none d-lg-table-cell">کشور</th>
+                                <th class="my-0 py-0">
+                                    <div class="dropdown d-flex justify-content-end d-none" id="all-btn">
+                                        <button class="btn btn-toolbar fs-5 text-black-50 bi bi-three-dots"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">صدا</a></li>
+                                            <li><a class="dropdown-item" href="#">تصویر</a></li>
+                                            <li><button class="dropdown-item btn btn-outline-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#DeleteModal">پاک
+                                                    کردن</button></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><input type="checkbox" class="form-check-input"></th>
+                                <td>
+                                    <li class="d-flex justify-content-start align-items-center">
+                                        <span class="badge text-success p-0 me-4">
+                                            <span class="bi bi-circle-fill"></span></span>
+                                        <a href="#" class="link-primary text-decoration-none fw-bold">
+                                            Ubuntu-2gb-hel1-1
+                                            <div class="fw-lighter text-muted">CX11 | x86 | 2GB | 20GB SSD | 1TB</div>
+                                        </a>
+                                    </li>
+                                </td>
+                                <td class="font-monospace user-select-all d-none d-md-table-cell">
+                                    3001:0da8:75a3:8a2e:://64</td>
+                                <td class="small d-none d-lg-table-cell"><img class="img-fluid m-2" height="12"
+                                        width="24"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg">
+                                    آلمان
+                                </td>
+                                <th class="dropdown">
+                                    <div class="d-flex justify-content-end py-3">
+                                        <button class="btn btn-toolbar fs-5 text-black-50 bi bi-three-dots"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu ">
+                                            <li><a class="dropdown-item" href="#">صدا</a></li>
+                                            <li><a class="dropdown-item" href="#">تصویر</a></li>
+                                            <li><button class="dropdown-item btn btn-outline-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#DeleteModal">پاک
+                                                    کردن</button></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="row"><input type="checkbox" class="form-check-input"></th>
+                                <td>
+                                    <li class="d-flex justify-content-start align-items-center">
+                                        <span class="badge text-secondary p-0 me-4">
+                                            <span class="bi bi-circle-fill"></span></span>
+                                        <a href="#" class="link-primary text-decoration-none fw-bold">
+                                            Windows-4gb-hel1-2
+                                            <div class="fw-lighter text-muted">CX11 | x64 | 4GB | 256GB SSD | 500GB
+                                            </div>
+                                        </a>
+                                    </li>
+                                </td>
+                                <td class="font-monospace user-select-all d-none d-md-table-cell">
+                                    da21:1gf2:52a1:7a3s:://62</td>
+                                <td class="small d-none d-lg-table-cell"><img class="img-fluid m-2" height="12"
+                                        width="24"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg">
+                                    ایران
+                                </td>
+                                <th class="dropdown">
+                                    <div class="d-flex justify-content-end py-3">
+                                        <button class="btn btn-toolbar fs-5 text-black-50 bi bi-three-dots"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu ">
+                                            <li><a class="dropdown-item" href="#">صدا</a></li>
+                                            <li><a class="dropdown-item" href="#">تصویر</a></li>
+                                            <li><button class="dropdown-item btn btn-outline-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#DeleteModal">پاک
+                                                    کردن</button></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="row"><input type="checkbox" class="form-check-input"></th>
+                                <td>
+                                    <li class="d-flex justify-content-start align-items-center">
+                                        <span class="badge text-danger p-0 me-4">
+                                            <span class="bi bi-circle-fill"></span></span>
+                                        <a href="#" class="link-primary text-decoration-none fw-bold">
+                                            Manjaro-1gb-hel1-3
+                                            <div class="fw-lighter text-muted">x86 | 2GB | 20GB SSD | 1TB</div>
+                                        </a>
+                                    </li>
+                                </td>
+                                <td class="font-monospace user-select-all d-none d-md-table-cell">
+                                    2002:0ab6:75a3:8a2e:://21</td>
+                                <td class="small d-none d-lg-table-cell"><img class="img-fluid m-2" height="12"
+                                        width="24"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg">
+                                    ترکیه </td>
+                                <th class="dropdown">
+                                    <div class="d-flex justify-content-end py-3">
+                                        <button class="btn btn-toolbar fs-5 text-black-50 bi bi-three-dots"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">صدا</a></li>
+                                            <li><a class="dropdown-item" href="#">تصویر</a></li>
+                                            <li><button class="dropdown-item btn btn-outline-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#DeleteModal">پاک
+                                                    کردن</button></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer style="background-color: rgb(68, 68, 68);">
+        <div class="container-fluid bg-dark text-white py-3" dir="ltr">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; 2023 Website. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-start">
+                        <p>Designed by a Dude..</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script>
+        document.addEventListener('change', (event) => {
+            if (event.target.type === 'checkbox' && !event.target.classList.contains('check-all')) {
+                if (event.target.checked) {
+                    event.target.parentNode.parentNode.classList.add('table-active');
+                    document.getElementById('all-btn').classList.remove('d-none');
+                } else {
+                    document.getElementById('all-btn').classList.add('d-none');
+                    event.target.parentNode.parentNode.classList.remove('table-active');
+                }
+            } else if (event.target.classList.contains('check-all')) {
+                if (event.target.checked) {
+                    document.querySelectorAll('input[class="form-check-input"]').forEach((item) => {
+                        item.checked = true;
+                        item.parentNode.parentNode.classList.add('table-active');
+                    });
+                    document.getElementById('all-btn').classList.remove('d-none');
+                } else {
+                    document.querySelectorAll('input[type="checkbox"]').forEach((item) => {
+                        item.checked = false;
+                        item.parentNode.parentNode.classList.remove('table-active');
+                    });
+                    document.getElementById('all-btn').classList.add('d-none');
+                }
+            }
+        })
+
+        var btn = document.querySelector('.toggle');
+        var btnst = true;
+        sidebar = document.querySelector('.sidebar')
+        btn.onclick = function () {
+            if (btnst == true) {
+                document.querySelector('.toggle span').classList.add('toggle');
+                sidebar.classList.add('sidebarshow');
+                sidebar.focus();
+                btnst = false;
+            } else if (btnst == false) {
+                document.querySelector('.toggle span').classList.remove('toggle');
+                sidebar.classList.remove('sidebarshow');
+                btnst = true;
+            }
+        }
+
+        function changeInput(elem) {
+            amount = document.getElementById('amount');
+            max = parseInt(amount.max);
+            min = parseInt(amount.min);
+            step = parseInt(amount.step);
+            if (amount.value == '') {
+                amount.value = current = min;
+            } else {
+                current = parseInt(amount.value);
+            }
+            if (elem.innerHTML == '+') {
+                if (current < max - step) {
+                    amount.value = current + step;
+                } else {
+                    amount.value = max;
+                }
+            } else {
+                if (current > min + step) {
+                    amount.value = current - step;
+                } else {
+                    amount.value = min;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

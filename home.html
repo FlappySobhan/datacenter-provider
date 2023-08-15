@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مثال</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.rtl.min.css" integrity="sha384-DOXMLfHhQkvFFp+rWTZwVlPVqdIhpDVYT9csOnHSgWQWPX0v5MCGtjCJbY6ERspU" crossorigin="anonymous">
+   <style>
+    .toggle {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 30px;
+            cursor: pointer;
+            outline: 0;
+        }
+
+        .toggle span {
+            width: 100%;
+            height: 3px;
+            background: #ffffff;
+            display: block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle span:before,
+        .toggle span:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            transition: all 0.3s ease-out;
+        }
+
+        .toggle span:before {
+            top: -8px;
+        }
+
+        .toggle span:after {
+            top: 8px;
+        }
+
+        .toggle span.toggle {
+            background: transparent;
+        }
+
+        .toggle span.toggle:before {
+            top: 0;
+            transform: rotate(-45deg);
+            background: #0d6efd;
+
+        }
+
+        .toggle span.toggle:after {
+            top: 0;
+            transform: rotate(45deg);
+            background: #0d6efd;
+        }
+    .parallax {
+      /*scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .top-banner {
+      background-image: url("img/hsp-2023-big.jpg");
+      height: 90vh;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+    <div class="container-fluid justify-content-start">
+      <button type="button" class="toggle d-block d-sm-none" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+      aria-label="Toggle navigation"><span></span></button>
+      <a class="navbar-brand text-white-50 ms-2" href="home.html">برند</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    محصولات
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark bg-dark border-0" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">#1</a></li>
+                    <li><a class="dropdown-item" href="#">#2</a></li>
+                    <li><a class="dropdown-item" href="#">#3</a></li>
+                    <li>
+                        <hr class="dropdown-divider text-black-50 mx-3">
+                    </li>
+                    <li><a class="dropdown-item" href="#">#0</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">پشتیبانی</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">درباره ما</a>
+            </li>
+            <a href="SignIn.html" class="btn btn-outline-primary d-sm-none fw-bold mt-3">شروع کنید</a>
+        </ul>
+    </div>
+    <div class="d-sm-flex d-none">
+        <a href="SignIn.html" class="btn btn-primary text-black-50 ms-2 px-4 fw-bold">شروع کنید</a>
+    </div>
+  </nav>
+
+  <div class="parallax top-banner">
+    <div class="container py-lg-5">
+      <div class="text-start text-white">
+        <div class="d-flex justify-content-start">
+          <h1 class="display-4 fw-bolder text-primary p-3 pt-2 mt-5">برند</h1>
+        </div>
+        <p class="lead fw-normal text-white-50 mt-2 mb-2">مدیریت سرورهای شما بدون دغدغه و نگرانی</p>
+        <a class="btn btn-lg btn-outline-light mt-5 mx-3 rounded-pill p-3 px-4 fw-bolder" href="#">تماس با فروش</a>
+      </div>
+    </div>
+  </div>
+  <div class="container p-3 my-5">
+    <p class="ms-3 text-dark h3  fw-normal">راه اندازی سرور مورد نیاز شما در کمترین زمان ممکن</p>
+    <div class="row">
+      <div class="col-md-6 mt-5 px-3">
+        <p class="text-wrap border-start px-3 border-info">
+        با سرورهای مقیاس پذیر و مقرون به صرفه سایت ما در بهترین دیتاسنترهای جهان با منابع و سیستم عامل دلخواه به تعداد نامحدود سرور بسازید.
+        <br>
+        با سرورهای مقیاس پذیر و مقرون به صرفه سایت ما در بهترین دیتاسنترهای جهان با منابع و سیستم عامل دلخواه به تعداد نامحدود سرور بسازید.
+        <br>
+        با سرورهای مقیاس پذیر و مقرون به صرفه سایت ما در بهترین دیتاسنترهای جهان با منابع و سیستم عامل دلخواه به تعداد نامحدود سرور بسازید.
+        <br>
+        با سرورهای مقیاس پذیر و مقرون به صرفه سایت ما در بهترین دیتاسنترهای جهان با منابع و سیستم عامل دلخواه به تعداد نامحدود سرور بسازید.
+      </p>
+    </div>
+    <div class="col-md-6 align-self-center">
+      <img src="img/cloud_server.svg" class="img-thumbnail border-0 float-start" alt="...">
+    </div>
+  </div>
+  </div>
+
+
+  <footer style="background-color: rgb(68, 68, 68);">
+    <div class="container-fluid pt-5 pb-4">
+      <div class="row text-center text-sm-start text-white-50">
+        <div class="col-sm-4 mb-4 ps-sm-5">
+          <h4 class="text-primary">درباره ما</h4><br>
+          <p class="mt-2">ما یک مجموعه‌ی بسیار بزرگ هستیم. بسیار بسیار بسیار بسیار بزرگ و قوی. درود بر شما.</p>
+        </div>
+        <div class="col-sm-4 mb-4">
+          <h4 class="text-primary">لینک‌ها</h4><br>
+          <ul class="nav flex-column px-0">
+            <li class="nav-item">
+              <a class="nav-link text-white-50 px-0" aria-current="page" href="#">صفحه اصلی</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white-50 px-0" href="#">عضویت در خبرنامه</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-muted px-0 disabled">Disabled</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="text-primary">ارتباط با ما</h4><br>
+          <address>
+            <p>تهران، میدان ولیعصر</p>
+            <p>کوچه‌ی شقایق، پلاک 12</p>
+            <p>تلفن: 555-555-5555</p>
+            <p>ایمیل: info@example.com</p>
+          </address>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid bg-dark text-white py-3" dir="ltr">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p>&copy; 2023 Website. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-start">
+            <p>Designed by a Dude..</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+    <script>
+    var btn = document.querySelector('.toggle');
+    var btnst = true;
+    btn.onclick = function () {
+      if (btnst == true) {
+        document.querySelector('.toggle span').classList.add('toggle');
+        btnst = false;
+      } else if (btnst == false) {
+        document.querySelector('.toggle span').classList.remove('toggle');
+        btnst = true;
+      }
+    }
+    </script>
+</body>
+
+</html>

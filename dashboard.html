@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>داشبورد کاربری</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.rtl.min.css"
+    integrity="sha384-DOXMLfHhQkvFFp+rWTZwVlPVqdIhpDVYT9csOnHSgWQWPX0v5MCGtjCJbY6ERspU" crossorigin="anonymous">
+  <!-- Option 1: Include in HTML -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    .toggle {
+      background: transparent;
+      border: none;
+      width: 40px;
+      height: 30px;
+      cursor: pointer;
+      outline: 0;
+    }
+
+    .toggle span {
+      width: 100%;
+      height: 3px;
+      background: #ffffff;
+      display: block;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .toggle span:before,
+    .toggle span:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      transition: all 0.3s ease-out;
+    }
+
+    .toggle span:before {
+      top: -8px;
+    }
+
+    .toggle span:after {
+      top: 8px;
+    }
+
+    .toggle span.toggle {
+      background: transparent;
+    }
+
+    .toggle span.toggle:before {
+      top: 0;
+      transform: rotate(-45deg);
+      background: #0d6efd;
+
+    }
+
+    .toggle span.toggle:after {
+      top: 0;
+      transform: rotate(45deg);
+      background: #0d6efd;
+    }
+
+    .sidebar {
+      position: fixed;
+      transition: all 0.4s ease-out;
+      top: 0;
+      right: -100vw;
+      height: 100%;
+      padding-top: 80px;
+      z-index: 1;
+    }
+
+    .sidebarshow {
+      right: 0vw;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+    <div class="container-fluid justify-content-start">
+      <button type="button" class="toggle"><!-- <i class="bi bi-list"></i> -->
+        <span></span>
+      </button>
+      <a class="navbar-brand text-white-50 ms-2" href="home.html">برند</a>
+  </nav>
+
+
+  <div class="modal fade" id="ChargeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ChargeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ChargeLabel">شارژ کیف پول</h1>
+          <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group my-2">
+            <label>موجودی فعلی:</label>
+            <p class="text-end fs-5 text-secondary"><span class="font-monospace">10,000</span> تومان</p>
+          </div>
+          <div class="form-group my-4">
+            <label for="amount" class="form-label">مبلغ مورد نظر:</label>
+            <div class="input-group p-4 pe-0 mb-3">
+              <button class="btn btn-secondary btn-minus" type="button" onclick="changeInput(this)">+</button>
+              <span class="input-group-text">تومان</span>
+              <input type="number" class="form-control font-monospace" id="amount" min="5000" max="200000000"
+                step="1000">
+              <button class="btn btn-secondary btn-plus" type="button" onclick="changeInput(this)">-</button>
+            </div>
+          </div>
+          <div class="form-group my-2">
+            <label for="amount-after-adding">موجودی بعد از شارژ شدن:</label>
+            <p class="text-end fs-5 text-success"><span class="font-monospace">250,000</span> تومان</p>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-start">
+          <button type="reset" class="btn btn-secondary p-2 px-4" data-bs-dismiss="modal">لغو</button>
+          <button type="submit" class="btn btn-primary p-2 px-3">پرداخت</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid vh-100">
+    <div class="row">
+      <div class="col-12 col-sm-4 col-md-3 trns bg-dark sidebar px-3">
+        <ul class="list-unstyled px-0">
+          <li class="mb-3">
+            <button class="btn btn-outline-light align-items-center collapsed w-100" data-bs-toggle="collapse"
+              data-bs-target="#server-collapse" aria-expanded="false">
+              <span class="bi bi-server"> خدمات دیتاسنتر</span>
+            </button>
+            <div class="collapse shadow show" id="server-collapse">
+              <ul class="list-unstyled pb-1 small mt-3 px-0">
+                <li><a href="servers.html" class="btn btn-sm btn-dark rounded w-100"><span
+                      class="bi bi-list-check"></span> لیست
+                    سرورها</a></li>
+                <li><a href="ips.html" class="btn btn-sm btn-dark rounded w-100 mt-2"><span
+                      class="bi bi-link-45deg"></span>لیست آی‌پی‌ها</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="mb-3">
+            <button class="btn btn-outline-light align-items-center collapsed w-100" data-bs-toggle="collapse"
+              data-bs-target="#dashboard-collapse" aria-expanded="false">
+              <span class="bi bi-person"> حساب کاربری</span>
+            </button>
+            <div class="collapse shadow show" id="dashboard-collapse">
+              <ul class="list-unstyled pb-1 small mt-3 px-0">
+                <li><a href="dashboard.html" class="btn btn-sm btn-dark rounded w-100 "><span
+                      class="bi bi-person-bounding-box disabled"></span>
+                    داشبورد </a></li>
+                <li><button class="btn btn-sm btn-dark rounded w-100 mt-2" type="button" data-bs-toggle="modal"
+                    data-bs-target="#ChargeModal"><span class="bi bi-wallet2"></span> شارژ
+                    کیف پول</button></li>
+                <li><a href="#" class="btn btn-sm btn-dark rounded w-100 mt-2"><span
+                      class="bi bi-calendar3-range disabled"></span>
+                    تاریخچه شارژ</a></li>
+                <li><a href="home.html" class="btn btn-sm btn-dark rounded w-100 mt-2"><span
+                      class="bi bi-door-open"></span>
+                    خروج از حساب</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <main role="main" class="pt-3 px-4 mb-5">
+        <h1 class="h2 px-3 pb-3 mb-3 border-bottom">سلام کاربر!</h1>
+        <div class="row g-4 text-black-50 mx-2">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card bg-info border-0">
+              <div class="row g-0">
+                <div class="col-md-3 bg-opacity-25 bg-dark rounded-start text-center">
+                  <i class="bi bi-link-45deg fs-1"></i>
+                </div>
+                <div class="col-md-9">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                      <h5 class="card-title mb-0">آی‌پی‌ها</h5>
+                      <span class="badge bg-dark bg-opacity-50 rounded-pill">4</span>
+                    </div>
+                    <a href="ips.html" class="text-decoration-none link-dark text-black-50">مشاهده جزئیات</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card bg-danger border-0">
+              <div class="row g-0">
+                <div class="col-md-3 bg-opacity-25 bg-dark rounded-start text-center">
+                  <i class="bi bi-cloud fs-1"></i>
+                </div>
+                <div class="col-md-9">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                      <h5 class="card-title mb-0">سرورها</h5>
+                      <span class="badge bg-dark bg-opacity-50 rounded-pill">2</span>
+                    </div>
+                    <a href="servers.html" class="text-decoration-none link-dark text-black-50">مشاهده جزئیات</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-none d-sm-block col-sm-6 col-lg-3">
+            <div class="card bg-success border-0">
+              <div class="row g-0">
+                <div class="col-md-3 bg-opacity-25 bg-dark rounded-start text-center">
+                  <i class="bi bi-pin-angle fs-1"></i>
+                </div>
+                <div class="col-md-9">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                      <h5 class="card-title mb-0">کشورهای موجود</h5>
+                      <span class="fs-2 bg-gradient shadow px-2 rounded-pill">7</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-none d-sm-block col-sm-6 col-lg-3">
+            <div class="card bg-warning border-0">
+              <div class="row g-0">
+                <div class="col-md-3 bg-opacity-25 bg-dark rounded-start text-center">
+                  <i class="bi bi-server fs-1"></i>
+                </div>
+                <div class="col-md-9">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                      <h5 class="card-title mb-0">دیتاسنترهای موجود</h5>
+                      <span class="fs-2 bg-gradient shadow px-2 rounded-pill">5</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 d-flex">
+            <div class="card w-100 h-100">
+              <h4 class="h6 card-header py-3 mx-4 bg-white">کیف پول</h4>
+              <div class="card-body d-flex flex-column align-items-center mx-2 mx-lg-4 pb-lg-4">
+                  <div class="bg-secondary bg-opacity-10 m-3 py-2 px-3 rounded w-100">
+                    اعتبار باقی‌مانده
+                    <p class="text-end fw-bolder py-auto pt-3"><span class="fs-4 font-monospace text-dark text-opacity-75">20000000000</span> تومان</p>
+                  </div>
+                <div class="row g-2 w-100 mx-2">
+                  <div class="col-6"><button type="button" data-bs-toggle="modal"
+                    data-bs-target="#ChargeModal" class="btn d-flex justify-content-between btn-outline-success rounded w-100 py-2">
+                    شارژ<span class="bi bi-plus-circle"></span></button></div>
+                  <div class="col-6"><button class="btn d-flex justify-content-between btn-outline-info rounded w-100 py-2">
+                    تاریخچه<span class="bi bi-list-ol"></span></button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 d-flex">
+            <div class="card shadow-sm w-100 h-100">
+              <h4 class="h6 card-header py-3 mb-2 mx-4 bg-white">تیکت‌ها</h4>
+              <div class="table-responsive small">
+                <table class="table table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">موضوع</th>
+                      <th scope="col">وضعیت</th>
+                      <th scope="col">آخرین به‌روزرسانی</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td><a href="#" class="link link-dark text-decoration-none">تغییراتی در سیستم اعمال شد.</a></td>
+                      <td><span class="badge bg-warning rounded-pill">در انتظار پاسخ</span></td>
+                      <td>1400/04/01</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td><a href="#" class="link link-dark text-decoration-none">تغییراتی در سیستم اعمال شد.</a></td>
+                      <td><span class="badge bg-success rounded-pill">پاسخ داده شد</span></td>
+                      <td>1400/04/01</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td><a href="#" class="link link-dark text-decoration-none">تغییراتی در سیستم اعمال شد.</a></td>
+                      <td><span class="badge bg-info rounded-pill">بسته شده</span></td>
+                      <td>1400/04/01</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td><a href="#" class="link link-dark text-decoration-none">تغییراتی در سیستم اعمال شد.</a></td>
+                      <td><span class="badge bg-danger rounded-pill">رد شده</span></td>
+                      <td>1400/04/01</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+          </div>
+      </main>
+    </div>
+  </div>
+
+  <footer style="background-color: rgb(68, 68, 68);">
+    <div class="container-fluid bg-dark text-white py-3" dir="ltr">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p>&copy; 2023 Website. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-start">
+            <p>Designed by a Dude..</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+  <script>
+    document.addEventListener('change', (event) => {
+      if (event.target.type === 'checkbox' && !event.target.classList.contains('check-all')) {
+        if (event.target.checked) {
+          event.target.parentNode.parentNode.classList.add('table-active');
+          document.getElementById('all-btn').classList.remove('d-none');
+        } else {
+          document.getElementById('all-btn').classList.add('d-none');
+          event.target.parentNode.parentNode.classList.remove('table-active');
+        }
+      } else if (event.target.classList.contains('check-all')) {
+        if (event.target.checked) {
+          document.querySelectorAll('input[class="form-check-input"]').forEach((item) => {
+            item.checked = true;
+            item.parentNode.parentNode.classList.add('table-active');
+          });
+          document.getElementById('all-btn').classList.remove('d-none');
+        } else {
+          document.querySelectorAll('input[type="checkbox"]').forEach((item) => {
+            item.checked = false;
+            item.parentNode.parentNode.classList.remove('table-active');
+          });
+          document.getElementById('all-btn').classList.add('d-none');
+        }
+      }
+    })
+
+    var btn = document.querySelector('.toggle');
+    var btnst = true;
+    sidebar = document.querySelector('.sidebar')
+    btn.onclick = function () {
+      if (btnst == true) {
+        document.querySelector('.toggle span').classList.add('toggle');
+        sidebar.classList.add('sidebarshow');
+        sidebar.focus();
+        btnst = false;
+      } else if (btnst == false) {
+        document.querySelector('.toggle span').classList.remove('toggle');
+        sidebar.classList.remove('sidebarshow');
+        btnst = true;
+      }
+    }
+
+    function changeInput(elem) {
+      amount = document.getElementById('amount');
+      max = parseInt(amount.max);
+      min = parseInt(amount.min);
+      step = parseInt(amount.step);
+      if (amount.value == '') {
+        amount.value = current = min;
+      } else {
+        current = parseInt(amount.value);
+      }
+      if (elem.innerHTML == '+') {
+        if (current < max - step) {
+          amount.value = current + step;
+        } else {
+          amount.value = max;
+        }
+      } else {
+        if (current > min + step) {
+          amount.value = current - step;
+        } else {
+          amount.value = min;
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
